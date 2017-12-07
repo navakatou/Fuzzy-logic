@@ -64,13 +64,14 @@ def trap(A, x):
             if c<= x <= d :
                 val = float((m2*x+b2))
                 #print 'Second ramp'
-            if (x<a and x>d):
+            if (x<a or x>d):
                 val = 0.0
-                #print 'Aqui caigo'
-            #print 'Trapezoidal degree', val, x, A
+                print 'Aqui caigo', A, x
+            #print 'Trapezoidal degree', x
             return val
     except:
-        print 'Vector must have 4 elements'
+        
+        print 'Vector must have 4 elements', x, A
     
     #first = (x - a) / (b - a)
     #second = (d - x) / (d - c)
@@ -122,6 +123,7 @@ def get_trp_funs(intvs,grp):
 def get_max_mf(gropued):
     tamDF = len(gropued)
     degmf = []
+    #print 'Gruops of duplicates', gropued
     for i in range(tamDF):
         temtr = trap(gropued.iloc[i][2],gropued.iloc[i][1])
         degmf.append(temtr)
@@ -132,8 +134,52 @@ def get_max_mf(gropued):
 
     return max_ind
     
-# %%
-    
+# %% I decided to work with the data here, maybe is necessary to add a function
+#    to read any document with the help of pandas
+
+# Information about arrivals to New Zeland through the years 2000-2013 
+dates1 = ['Jan-2000','Feb-2000', 'Mar-2000', 'Apr-2000', 'May-2000', 'Jun-2000',\
+'Jul-2000', 'Aug-2000', 'Sep-2000', 'Oct-2000', 'Nov-2000', 'Dec-2000', 'Jan-2001', \
+'Feb-2001', 'Mar-2001', 'Apr-2001', 'May-2001', 'Jun-2001', 'Jul-2001', 'Aug-2001',\
+'Sep-2001', 'Oct-2001', 'Nov-2001', 'Dec-2001', 'Jan-2002', 'Feb-2002', 'Mar-2002', \
+'Apr-2002', 'May-2002', 'Jun-2002', 'Jul-2002', 'Aug-2002', 'Sep-2002', 'Oct-2002',\
+'Nov-2002', 'Dec-2002', 'Jan-2003', 'Feb-2003', 'Mar-2003',  'Apr-2003', 'May-2003', \
+'Jun-2003', 'Jul-2003', 'Aug-2003', 'Sep-2003', 'Oct-2003', 'Nov-2003', 'Dec-2003', \
+'Jan-2004', 'Feb-2004', 'Mar-2004', 'Apr-2004', 'May-2004', 'Jun-2004', 'Jul-2004', \
+'Aug-2004', 'Jan-2004', 'Feb-2004', 'Mar-2004', 'Apr-2004', 'May-2004', 'Jun-2004',\
+'Jul-2004', 'Aug-2004', 'Sep-2004', 'Oct-2004', 'Nov-2004', 'Dec-2004', 'Jan-2005',\
+'Feb-2005', 'Mar-2005', 'Apr-2005', 'May-2005', 'Jun-2005', 'Jul-2005', 'Aug-2005',\
+'Sep-2005', 'Oct-2005', 'Nov-2005', 'Dec-2005', 'Jan-2006', 'Feb-2006', 'Mar-2006',\
+'Apr-2006', 'May-2006', 'Jun-2006', 'Jul-2006', 'Aug-2006', 'Sep-2006', 'Oct-2006',\
+'Nov-2006', 'Dec-2006', 'Jan-2007', 'Feb-2007', 'Mar-2007', 'Apr-2007', 'May-2007',\
+'Jun-2007', 'Jul-2007', 'Aug-2007', 'Sep-2007', 'Oct-2007', 'Nov-2007', 'Dec-2007',\
+'Jan-2008', 'Feb-2008', 'Mar-2008', 'Apr-2008', 'May-2008', 'Jun-2008', 'Jul-2008',\
+'Aug-2008', 'Sep-2008', 'Oct-2008', 'Nov-2008', 'Dec-2008', 'Jan-2009', 'Feb-2009',\
+'Mar-2009', 'Apr-2009', 'May-2009', 'Jun-2009', 'Jul-2009', 'Aug-2009', 'Sep-2009',\
+'Oct-2009', 'Nov-2009', 'Dec-2009', 'Jan-2010', 'Feb-2010', 'Mar-2010', 'Apr-2010',\
+'May-2010', 'Jun-2010', 'Jul-2010', 'Aug-2010', 'Sep-2010', 'Oct-2010', 'Nov-2010',\
+'Dec-2010', 'Jan-2011', 'Feb-2011', 'Mar-2011', 'Apr-2011', 'May-2011', 'Jun-2011',\
+'Jul-2011', 'Aug-2011', 'Sep-2011', 'Oct-2011', 'Nov-2011', 'Dec-2011', 'Jan-2012',\
+'Feb-2012', 'Mar-2012', 'Apr-2012', 'May-2012', 'Jun-2012', 'Jul-2012', 'Aug-2012',\
+'Sep-2012', 'Oct-2012', 'Nov-2012', 'Dec-2012', 'Jan-2013', 'Feb-2013', 'Mar-2013']
+
+students1 = [169404, 192856, 152910, 143681, 99068, 97516, 130571, 117365, 113750, 146610,\
+182324, 243023, 197765, 199792, 176875, 153186, 110936, 112279, 144380, 136864, 131194,\
+142095, 164636, 239807, 204717, 212233, 202504, 143877, 118201, 115194, 152156, 133272,\
+136085, 162327, 198705, 265691, 220861, 222201, 193853, 150416, 102745, 111982, 145564,\
+135351, 148420, 165821, 211735, 297280, 244333, 238032, 211748, 184379, 132715, 134813,\
+173328, 152104, 244333, 238032, 211748, 184379, 132715, 134813, 173328, 152104, 161182,\
+181371, 220610, 313057, 249933, 250070, 234101, 174757, 135708, 157547, 168422, 150656,\
+163785, 176216, 214694, 307061, 250554, 252431, 226966, 191648, 135279, 139891, 166970,\
+155699, 166531, 186639, 229913, 319040, 246748, 267569, 239203, 193229, 140755, 145498,\
+173046, 164775, 168838, 179947, 228813, 317259, 253515, 280513, 250806, 179388, 140483,\
+142413, 175738, 162485, 157704, 173938, 219313, 322207, 244030, 256559, 226461, 195883,\
+141916, 135162, 176198, 161100, 172425, 187372, 219939, 341337, 256652, 267855, 243263,\
+187962, 141336, 145825, 182904, 168081, 174157, 184898, 226455, 345656, 265553, 268259,\
+215553, 197777, 140741, 131269, 176084, 175909, 219940, 215902, 230292, 364165, 266839,\
+259083, 239929, 195668, 140841, 151074, 173539, 178298, 179069, 184200, 232119, 363959,\
+260637, 281233, 270740]
+
 dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
 1986, 1987, 1988, 1989, 1990, 1991, 1992]
 students = [13055, 13563, 13867, 14696, 15460, 15311, 15603, 15861, 16807, 16919, 16388, 15433, \
@@ -148,8 +194,8 @@ Df= pd.DataFrame({ 'Enrollment': students, 'Year' : dates }, columns = ['Year', 
 new_stud = np.sort(students)
 Dmax = max(students)
 Dmin = min(students)
-print Dmax 
-print Dmin
+print 'Maximum data value', Dmax 
+print 'Minimum data value', Dmin
 
 l_tam = len(dates)
 # Computing average distance between data sorted
@@ -166,8 +212,8 @@ for i in range(l_tam-1):
     dist.append(tmp)
 AD = sum1/(l_tam - 1)
 Range = sum1a/(2*(l_tam-1))
-print Range
-print AD
+print 'Average Distance 1', Range
+print 'Average Distance', AD
 
 # Computing standard deviation
 sum2 = 0
@@ -185,12 +231,12 @@ for k in range(l_tam-1):
         best_dist.append(dist[k])
         #print dist[k]
 ADr = round(np.mean(best_dist),0)
-print ADr
+print 'New average distance', ADr
 # Limits of universe U = [Dmin-AD,Dmax+AD]
 l_inf = Dmin - ADr
 l_sup = Dmax + ADr
-print l_inf
-print l_sup
+print 'New inferior limit', l_inf
+print 'New superior limit', l_sup
 rang = np.arange(l_inf,l_sup)
 # Number of sets of U, n = (R-S)/2S 
 R = l_sup - l_inf
@@ -200,9 +246,9 @@ A_names = [str(i) for i in np.arange(n)] # There is no error of np.arange
 n_p = (2*n)
 
 
-print n 
+print 'Number of intervals 1 =', n 
 m = R/Range
-print m
+print 'Number of intervals 2= ', m
 
 nl_inf = l_inf + ADr
 nl_sup = l_sup - ADr
@@ -256,21 +302,22 @@ Fzytion_set = []
 Fzytion_val = []
 for val in students:
     for p in range(len(Anew)):
-        xset = is_in(val,A[p])
+        #xset = is_in(val,A[p])
+        xset = is_in(val,Anew[p])
         if xset == 1:
             Fzytion_set.append(int(float(A_names[p]))) # Assigment of fuzzy set Ai
             Fzytion_val.append(val) # Values of the fuzzy set Ai
-            #Fzytion_num.append(Anew[p])
-            Fzytion_num.append(A[p])
-            
+            Fzytion_num.append(Anew[p])
+            #Fzytion_num.append(A[p])
+        
 vc = pd.Series(Fzytion_val)
 df =vc[vc.duplicated(keep=False)]
 dfp  = df.tolist() # List of duplicate values
 inx_d = df.index.tolist() # List of indexes of duplicate values
-print (Fzytion_val)                    
-print (Fzytion_set)
-print (dfp)
-print (inx_d)
+#print (Fzytion_val)                    
+#print (Fzytion_set)
+#print (dfp)
+#print (inx_d)
 print ''
 
 # Elimiar uno de los valores que se repitan, al considerar el que tiene el mayor grado en
@@ -295,8 +342,8 @@ nidx = [item for item in itx if item not in idx_d]
 Nsetg = setg[setg.index.isin(nidx)].copy(deep=True) # Final Data frame with unique elements of students (is not the same
 # as the values of the paper because of the partition is a little bit different)
 #print len(Nsetg)
-print 'New index'
-print nidx
+#print 'New index'
+#print nidx
 
 # %%
 # Create a list of first order relationships First_or = [[Ai,Aj], [Aj,Ak], ....]
@@ -308,9 +355,8 @@ st_or = list (Nsetg['Aip'][k:k+n].values.tolist() for k in range (0, len(Nsetg['
 #    print j,a 
 st_or.sort()
 First_or = list(k for k,_ in itertools.groupby(st_or))
-print First_or
+#print First_or
 #print len(First_or)
-print First_or[0]
 # Create the list of the First Group Relationships FLGRn
 FLGRs = [] # List of groups (indexes) with the same initial set
 ukeys = [] # List of initial set (index)
@@ -328,7 +374,7 @@ for i,e in zip(ukeys,FLGRs):
         tmp.append(it[1])
     FLGRn.append(tmp)
 
-print FLGRn
+#print FLGRn
 
 
 
@@ -342,15 +388,20 @@ for item in Nsetg['Aip']:
     if gii != None:
         gind = FLGRn[gii]
         ai_g.append(gii)
+        intervs = get_trp_funs(Anew,gind)
     else:
-        gind = Anew[item]
+        gind = [Anew[item]]
         ai_g.append(item)
-        print item
-        
-    intervs = get_trp_funs(Anew,gind)
+        print 'Value whitout group',item, gind
+        intervs = gind
+    #print 'Calculate midpoint for value', item, gind
+    #intervs = get_trp_funs(Anew,gind)
     midpoint = defuz_midpoint(intervs)
     aine.append(midpoint)
+print ''
 print aine
 
 # %% 
 
+#tt = Anew[9]
+#x_T = 
