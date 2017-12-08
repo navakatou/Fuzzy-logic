@@ -138,47 +138,6 @@ def get_max_mf(gropued):
 #    to read any document with the help of pandas
 
 # Information about arrivals to New Zeland through the years 2000-2013 
-dates1 = ['Jan-2000','Feb-2000', 'Mar-2000', 'Apr-2000', 'May-2000', 'Jun-2000',\
-'Jul-2000', 'Aug-2000', 'Sep-2000', 'Oct-2000', 'Nov-2000', 'Dec-2000', 'Jan-2001', \
-'Feb-2001', 'Mar-2001', 'Apr-2001', 'May-2001', 'Jun-2001', 'Jul-2001', 'Aug-2001',\
-'Sep-2001', 'Oct-2001', 'Nov-2001', 'Dec-2001', 'Jan-2002', 'Feb-2002', 'Mar-2002', \
-'Apr-2002', 'May-2002', 'Jun-2002', 'Jul-2002', 'Aug-2002', 'Sep-2002', 'Oct-2002',\
-'Nov-2002', 'Dec-2002', 'Jan-2003', 'Feb-2003', 'Mar-2003',  'Apr-2003', 'May-2003', \
-'Jun-2003', 'Jul-2003', 'Aug-2003', 'Sep-2003', 'Oct-2003', 'Nov-2003', 'Dec-2003', \
-'Jan-2004', 'Feb-2004', 'Mar-2004', 'Apr-2004', 'May-2004', 'Jun-2004', 'Jul-2004', \
-'Aug-2004', 'Jan-2004', 'Feb-2004', 'Mar-2004', 'Apr-2004', 'May-2004', 'Jun-2004',\
-'Jul-2004', 'Aug-2004', 'Sep-2004', 'Oct-2004', 'Nov-2004', 'Dec-2004', 'Jan-2005',\
-'Feb-2005', 'Mar-2005', 'Apr-2005', 'May-2005', 'Jun-2005', 'Jul-2005', 'Aug-2005',\
-'Sep-2005', 'Oct-2005', 'Nov-2005', 'Dec-2005', 'Jan-2006', 'Feb-2006', 'Mar-2006',\
-'Apr-2006', 'May-2006', 'Jun-2006', 'Jul-2006', 'Aug-2006', 'Sep-2006', 'Oct-2006',\
-'Nov-2006', 'Dec-2006', 'Jan-2007', 'Feb-2007', 'Mar-2007', 'Apr-2007', 'May-2007',\
-'Jun-2007', 'Jul-2007', 'Aug-2007', 'Sep-2007', 'Oct-2007', 'Nov-2007', 'Dec-2007',\
-'Jan-2008', 'Feb-2008', 'Mar-2008', 'Apr-2008', 'May-2008', 'Jun-2008', 'Jul-2008',\
-'Aug-2008', 'Sep-2008', 'Oct-2008', 'Nov-2008', 'Dec-2008', 'Jan-2009', 'Feb-2009',\
-'Mar-2009', 'Apr-2009', 'May-2009', 'Jun-2009', 'Jul-2009', 'Aug-2009', 'Sep-2009',\
-'Oct-2009', 'Nov-2009', 'Dec-2009', 'Jan-2010', 'Feb-2010', 'Mar-2010', 'Apr-2010',\
-'May-2010', 'Jun-2010', 'Jul-2010', 'Aug-2010', 'Sep-2010', 'Oct-2010', 'Nov-2010',\
-'Dec-2010', 'Jan-2011', 'Feb-2011', 'Mar-2011', 'Apr-2011', 'May-2011', 'Jun-2011',\
-'Jul-2011', 'Aug-2011', 'Sep-2011', 'Oct-2011', 'Nov-2011', 'Dec-2011', 'Jan-2012',\
-'Feb-2012', 'Mar-2012', 'Apr-2012', 'May-2012', 'Jun-2012', 'Jul-2012', 'Aug-2012',\
-'Sep-2012', 'Oct-2012', 'Nov-2012', 'Dec-2012', 'Jan-2013', 'Feb-2013', 'Mar-2013']
-
-students1 = [169404, 192856, 152910, 143681, 99068, 97516, 130571, 117365, 113750, 146610,\
-182324, 243023, 197765, 199792, 176875, 153186, 110936, 112279, 144380, 136864, 131194,\
-142095, 164636, 239807, 204717, 212233, 202504, 143877, 118201, 115194, 152156, 133272,\
-136085, 162327, 198705, 265691, 220861, 222201, 193853, 150416, 102745, 111982, 145564,\
-135351, 148420, 165821, 211735, 297280, 244333, 238032, 211748, 184379, 132715, 134813,\
-173328, 152104, 244333, 238032, 211748, 184379, 132715, 134813, 173328, 152104, 161182,\
-181371, 220610, 313057, 249933, 250070, 234101, 174757, 135708, 157547, 168422, 150656,\
-163785, 176216, 214694, 307061, 250554, 252431, 226966, 191648, 135279, 139891, 166970,\
-155699, 166531, 186639, 229913, 319040, 246748, 267569, 239203, 193229, 140755, 145498,\
-173046, 164775, 168838, 179947, 228813, 317259, 253515, 280513, 250806, 179388, 140483,\
-142413, 175738, 162485, 157704, 173938, 219313, 322207, 244030, 256559, 226461, 195883,\
-141916, 135162, 176198, 161100, 172425, 187372, 219939, 341337, 256652, 267855, 243263,\
-187962, 141336, 145825, 182904, 168081, 174157, 184898, 226455, 345656, 265553, 268259,\
-215553, 197777, 140741, 131269, 176084, 175909, 219940, 215902, 230292, 364165, 266839,\
-259083, 239929, 195668, 140841, 151074, 173539, 178298, 179069, 184200, 232119, 363959,\
-260637, 281233, 270740]
 
 dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
 1986, 1987, 1988, 1989, 1990, 1991, 1992]
@@ -254,19 +213,17 @@ nl_inf = l_inf + ADr
 nl_sup = l_sup - ADr
 
 #Create the intervals of U
+#U_t = []
 U_s = []
 U_l = []
-U_t = []
+
 for i in range(1,int(n_p)):
     U_l.append(nl_inf+(i-1)*S)  
     if len(U_l) == (int(n_p)-1):
         U_l.append(nl_inf+i*S)  
-        #print "appended"
     U_s.append(nl_inf+i*S)
     #U_t.append((nl_inf+i*S)-(nl_inf+(i-1)*S))
 
-#print U_l
-#print len(U_l)
 
 U_l.append(l_sup)
 U_l.insert(0,l_inf)
@@ -281,8 +238,7 @@ for i in range(len(U_l)):
         Anew.append(tmp)
         del x[0]
         del x[0]
-#print Anew    
-#print len(Anew)
+
 A = [[12861,13055,13245,13436], [13245,13436,13626,13816],[13626,13816,14007,14197], \
 [14007,14197,14388,14578], [14388,14578,14768,14959], [14768,14959,15149,15339], \
 [15149,15339,15530,15720], [15530,15720,15910,16101], [15910,16101,16291,16482], \
@@ -290,7 +246,7 @@ A = [[12861,13055,13245,13436], [13245,13436,13626,13816],[13626,13816,14007,141
 [17433,17624,17814,18004], [17814,18004,18195,18385], [18195,18385,18576,18766], \
 [18576,18766,18956,19147], [18956,19147,19337,19531]]
 
-# Create all trapezoidal membershipfunctions
+# Create all trapezoidal membershipfunctions with the skfuzzy package
 #fuzz_set_A = ctrl.Consequent(rang,'universe')
 #for k in range(int(n)) :
 #    fuzz_set_A[A_names[k]] = fuzz.trapmf(fuzz_set_A.universe,Anew[k])
@@ -341,9 +297,6 @@ for name,group in g:
 nidx = [item for item in itx if item not in idx_d] 
 Nsetg = setg[setg.index.isin(nidx)].copy(deep=True) # Final Data frame with unique elements of students (is not the same
 # as the values of the paper because of the partition is a little bit different)
-#print len(Nsetg)
-#print 'New index'
-#print nidx
 
 # %%
 # Create a list of first order relationships First_or = [[Ai,Aj], [Aj,Ak], ....]
@@ -356,12 +309,11 @@ st_or = list (Nsetg['Aip'][k:k+n].values.tolist() for k in range (0, len(Nsetg['
 st_or.sort()
 First_or = list(k for k,_ in itertools.groupby(st_or))
 #print First_or
-#print len(First_or)
+
 # Create the list of the First Group Relationships FLGRn
 FLGRs = [] # List of groups (indexes) with the same initial set
 ukeys = [] # List of initial set (index)
 for k,g in itertools.groupby(First_or, lambda x : x[0]):
-    #print list(g)    
     FLGRs.append(list(g))
     ukeys.append(k)
 
@@ -374,15 +326,13 @@ for i,e in zip(ukeys,FLGRs):
         tmp.append(it[1])
     FLGRn.append(tmp)
 
-#print FLGRn
-
-
+#print FLGRn # Fisrt Order Groups Relations 
 
 # %%
 # The process of "Deffuzyfication" by calculating the centroid 
 
 ai_g = [] # Just a vector to keep the indexes of FLGRn for each Ai
-aine = [0] # Vector for values predicted
+pdrs = [0] # Vector for values predicted
 for item in Nsetg['Aip']:
     gii = find_grp(FLGRn,item)
     if gii != None:
@@ -397,11 +347,6 @@ for item in Nsetg['Aip']:
     #print 'Calculate midpoint for value', item, gind
     #intervs = get_trp_funs(Anew,gind)
     midpoint = defuz_midpoint(intervs)
-    aine.append(midpoint)
+    pdrs.append(midpoint)
 print ''
-print aine
-
-# %% 
-
-#tt = Anew[9]
-#x_T = 
+print pdrs
