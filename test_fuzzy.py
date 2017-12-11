@@ -139,24 +139,35 @@ def get_max_mf(gropued):
 
 # Information about arrivals to New Zeland through the years 2000-2013 
 
-dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
-1986, 1987, 1988, 1989, 1990, 1991, 1992]
-students = [13055, 13563, 13867, 14696, 15460, 15311, 15603, 15861, 16807, 16919, 16388, 15433, \
-15497, 15145, 15163, 15984, 16859, 18150, 18970, 19328, 19337, 18876]
+#dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
+#1986, 1987, 1988, 1989, 1990, 1991, 1992]
+#students = [13055, 13563, 13867, 14696, 15460, 15311, 15603, 15861, 16807, 16919, 16388, 15433, \
+#15497, 15145, 15163, 15984, 16859, 18150, 18970, 19328, 19337, 18876]
+#
+#Df= pd.DataFrame({ 'Enrollment': students, 'Year' : dates }, columns = ['Year', 'Enrollment'] )    
 
-test_d = pd.Series(students)
+Ff = pd.read_csv('/home/albertnava/Documentos/data/Arrivals_NZ.csv')
+Df = pd.DataFrame(Ff)
 
-
-Df= pd.DataFrame({ 'Enrollment': students, 'Year' : dates }, columns = ['Year', 'Enrollment'] )    
+#df = pd.read_csv('/home/albertnava/Documentos/data/Melate.csv')
+#Dfp = pd.DataFrame(df)
+#nmb = range(785)
+#nmb = nmb[::-1]
+#nmb = [x+1 for x in nmb]
+#s = pd.DataFrame({'event':nmb})
+#ndf = pd.concat([s,Dfp], axis = 1)
+#nDf = ndf[['event', 'ichi']].copy()
+#Df = nDf[:100]
 
 # Sorting the data in ascending order
-new_stud = np.sort(students)
-Dmax = max(students)
-Dmin = min(students)
+#new_stud = np.sort(Df.iloc[:,1])
+new_stud = Df.iloc[:,1]
+Dmax = max(Df.iloc[:, 1])
+Dmin = min(Df.iloc[:, 1])
 print 'Maximum data value', Dmax 
 print 'Minimum data value', Dmin
 
-l_tam = len(dates)
+l_tam = len(Df.iloc[:,0])
 # Computing average distance between data sorted
 dist = []
 dist2 = []
@@ -164,15 +175,15 @@ sum1 = 0
 sum1a = 0
 for i in range(l_tam-1):
     tmp = np.abs(new_stud[i]-new_stud[i+1])
-    tmp1 = np.abs(students[i+1]-students[i])
+    tmp1 = np.abs(Df.iloc[i+1,1]-Df.iloc[i,1])
     sum1a = sum1a + tmp1
     sum1 = sum1 + tmp
     dist2.append(tmp1)
     dist.append(tmp)
 AD = sum1/(l_tam - 1)
 Range = sum1a/(2*(l_tam-1))
-print 'Average Distance 1', Range
-print 'Average Distance', AD
+print 'Average Distance 1 =', Range
+print 'Average Distance 2 =', AD
 
 # Computing standard deviation
 sum2 = 0
@@ -200,12 +211,12 @@ rang = np.arange(l_inf,l_sup)
 # Number of sets of U, n = (R-S)/2S 
 R = l_sup - l_inf
 S = 190  
-n = round((R-S)/(2*S),0)
-A_names = [str(i) for i in np.arange(n)] # There is no error of np.arange
-n_p = (2*n)
+n_i = round((R-S)/(2*S),0)
+A_names = [str(i) for i in np.arange(n_i)] # There is no error of np.arange
+n_p = (2*n_i)
 
 
-print 'Number of intervals 1 =', n 
+print 'Number of intervals 1 =', n_i 
 m = R/Range
 print 'Number of intervals 2= ', m
 
@@ -256,7 +267,8 @@ A = [[12861,13055,13245,13436], [13245,13436,13626,13816],[13626,13816,14007,141
 Fzytion_num = []    
 Fzytion_set = []
 Fzytion_val = []
-for val in students:
+
+for val in Df.iloc[:,1]:
     for p in range(len(Anew)):
         #xset = is_in(val,A[p])
         xset = is_in(val,Anew[p])
@@ -295,7 +307,7 @@ for name,group in g:
 #print idx_d
 
 nidx = [item for item in itx if item not in idx_d] 
-Nsetg = setg[setg.index.isin(nidx)].copy(deep=True) # Final Data frame with unique elements of students (is not the same
+Nsetg = setg[setg.index.isin(nidx)].copy(deep=True) # Final Data frame with unique elements of values (is not the same
 # as the values of the paper because of the partition is a little bit different)
 
 # %%
@@ -348,5 +360,16 @@ for item in Nsetg['Aip']:
     #intervs = get_trp_funs(Anew,gind)
     midpoint = defuz_midpoint(intervs)
     pdrs.append(midpoint)
-print ''
+print 'Predicted values'
 print pdrs
+
+# %% 
+
+# %% 
+# Create plots to check results
+plt.figure()
+ax = pd.to_datetime(Df.iloc[:,0])
+plt.plot(ax, Df.iloc[:, 1],'r')
+plt.plot(ax, pdrs[:l_tam], 'b')
+plt.grid()
+plt.show()
