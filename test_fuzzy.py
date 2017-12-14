@@ -139,25 +139,12 @@ def get_max_mf(gropued):
 
 # Information about arrivals to New Zeland through the years 2000-2013 
 
-#dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
-#1986, 1987, 1988, 1989, 1990, 1991, 1992]
-#students = [13055, 13563, 13867, 14696, 15460, 15311, 15603, 15861, 16807, 16919, 16388, 15433, \
-#15497, 15145, 15163, 15984, 16859, 18150, 18970, 19328, 19337, 18876]
-#
-#Df= pd.DataFrame({ 'Enrollment': students, 'Year' : dates }, columns = ['Year', 'Enrollment'] )    
+dates = [1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,\
+1986, 1987, 1988, 1989, 1990, 1991, 1992]
+students = [13055, 13563, 13867, 14696, 15460, 15311, 15603, 15861, 16807, 16919, 16388, 15433, \
+15497, 15145, 15163, 15984, 16859, 18150, 18970, 19328, 19337, 18876]
 
-Ff = pd.read_csv('/home/albertnava/Documentos/data/Arrivals_NZ.csv')
-Df = pd.DataFrame(Ff)
-
-#df = pd.read_csv('/home/albertnava/Documentos/data/Melate.csv')
-#Dfp = pd.DataFrame(df)
-#nmb = range(785)
-#nmb = nmb[::-1]
-#nmb = [x+1 for x in nmb]
-#s = pd.DataFrame({'event':nmb})
-#ndf = pd.concat([s,Dfp], axis = 1)
-#nDf = ndf[['event', 'ichi']].copy()
-#Df = nDf[:100]
+Df= pd.DataFrame({ 'Enrollment': students, 'Year' : dates }, columns = ['Year', 'Enrollment'] )    
 
 # Sorting the data in ascending order
 #new_stud = np.sort(Df.iloc[:,1])
@@ -168,6 +155,8 @@ print 'Maximum data value', Dmax
 print 'Minimum data value', Dmin
 
 l_tam = len(Df.iloc[:,0])
+print 'Length of dates', l_tam
+
 # Computing average distance between data sorted
 dist = []
 dist2 = []
@@ -210,15 +199,29 @@ print 'New superior limit', l_sup
 rang = np.arange(l_inf,l_sup)
 # Number of sets of U, n = (R-S)/2S 
 R = l_sup - l_inf
-S = 190  
+#S = 190  
+S = ADr
 n_i = round((R-S)/(2*S),0)
+print 'Number of intervals 1 =', n_i 
 A_names = [str(i) for i in np.arange(n_i)] # There is no error of np.arange
 n_p = (2*n_i)
 
-
-print 'Number of intervals 1 =', n_i 
-m = R/Range
+m = (R/Range)
 print 'Number of intervals 2= ', m
+
+# Check if the number of intervals 1 is not zero
+if (n_i == 0 and m > 0):
+    print 'Number of intervals new'
+    n_p = 2*round(m)
+    n_i = m
+    A_names = [str(i) for i in np.arange(n_i)] # There is no error of np.arange
+
+if (n_i<m):
+    print 'Number of interval new'
+    n_p = 2*round(m)
+    n_i = m
+    A_names = [str(i) for i in np.arange(n_i)] # There is no error of np.arange
+
 
 nl_inf = l_inf + ADr
 nl_sup = l_sup - ADr
@@ -250,18 +253,20 @@ for i in range(len(U_l)):
         del x[0]
         del x[0]
 
+# Intervals used in the paper
 A = [[12861,13055,13245,13436], [13245,13436,13626,13816],[13626,13816,14007,14197], \
 [14007,14197,14388,14578], [14388,14578,14768,14959], [14768,14959,15149,15339], \
 [15149,15339,15530,15720], [15530,15720,15910,16101], [15910,16101,16291,16482], \
 [16291,16482,16672,16862], [16672,16862,17053,17243], [17053,17243,17433,17624], \
 [17433,17624,17814,18004], [17814,18004,18195,18385], [18195,18385,18576,18766], \
-[18576,18766,18956,19147], [18956,19147,19337,19531]]
+[18576,18766,18956,19147], [18956,19147,19337,19531]] 
 
 # Create all trapezoidal membershipfunctions with the skfuzzy package
-#fuzz_set_A = ctrl.Consequent(rang,'universe')
-#for k in range(int(n)) :
-#    fuzz_set_A[A_names[k]] = fuzz.trapmf(fuzz_set_A.universe,Anew[k])
-#fuzz_set_A.view()
+# it is necessary the data be sorted
+fuzz_set_A = ctrl.Consequent(rang,'universe')
+for k in range(int(n_i)) :
+    fuzz_set_A[A_names[k]] = fuzz.trapmf(fuzz_set_A.universe,Anew[k])
+fuzz_set_A.view()
     
 # Fuzzyfy the data set using the trapezoid fuzzyfication approach
 Fzytion_num = []    
@@ -278,14 +283,9 @@ for val in Df.iloc[:,1]:
             Fzytion_num.append(Anew[p])
             #Fzytion_num.append(A[p])
         
-vc = pd.Series(Fzytion_val)
-df =vc[vc.duplicated(keep=False)]
-dfp  = df.tolist() # List of duplicate values
-inx_d = df.index.tolist() # List of indexes of duplicate values
 #print (Fzytion_val)                    
 #print (Fzytion_set)
-#print (dfp)
-#print (inx_d)
+
 print ''
 
 # Elimiar uno de los valores que se repitan, al considerar el que tiene el mayor grado en
@@ -367,9 +367,9 @@ print pdrs
 
 # %% 
 # Create plots to check results
-plt.figure()
-ax = pd.to_datetime(Df.iloc[:,0])
-plt.plot(ax, Df.iloc[:, 1],'r')
-plt.plot(ax, pdrs[:l_tam], 'b')
-plt.grid()
-plt.show()
+#plt.figure()
+#ax = pd.to_datetime(Df.iloc[:,0])
+#plt.plot(ax, Df.iloc[:, 1],'r')
+#plt.plot(ax, pdrs[:l_tam], 'b')
+#plt.grid()
+#plt.show()
