@@ -200,12 +200,12 @@ rang = np.arange(l_inf,l_sup)
 # Number of sets of U, n = (R-S)/2S 
 R = l_sup - l_inf
 S = 190  
-n = round((R-S)/(2*S),0)
-A_names = [str(i) for i in np.arange(n)] # There is no error of np.arange
-n_p = (2*n)
+n_i = round((R-S)/(2*S),0)
+A_names = [str(i) for i in np.arange(n_i)] # There is no error of np.arange
+n_p = (2*n_i)
 
 
-print 'Number of intervals 1 =', n 
+print 'Number of intervals 1 =', n_i 
 m = R/Range
 print 'Number of intervals 2= ', m
 
@@ -360,7 +360,3 @@ for item in Nsetg['Aip']:
 print ''
 print aine
 
-# %% 
-
-#tt = Anew[9]
-#x_T = 
