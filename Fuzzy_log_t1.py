@@ -150,29 +150,26 @@ for k in range(l_tam-1):
 ADr = round(np.mean(best_dist),0)
 print 'New average distance', ADr
 # Limits of universe U = [Dmin-AD,Dmax+AD] normally
-l_inf = Dmin - ADr
-l_sup = Dmax + ADr
-print 'New inferior limit', l_inf
-print 'New superior limit', l_sup
-rang = np.arange(l_inf,l_sup)
-# Number of sets of U, n = (R-S)/2S 
-nl_inf = l_inf 
-nl_sup = l_sup 
+nl_inf = Dmin - ADr
+nl_sup = Dmax + ADr
+rang = np.arange(nl_inf,nl_sup)
+
 print 'New inferior limit', nl_inf
 print 'New superior limit', nl_sup
+
 #Create the intervals of U
 n_p = 7 # Number of intervals
-int_sz = round ((l_sup - l_inf)/n_p) # Size of interval
+int_sz = round ((nl_sup - nl_inf)/n_p) # Size of interval
 print 'Size of interval {}'.format(int_sz)
 A_names = [str(i) for i in np.arange(n_p)]
-U_l = [l_inf]
+U_l = [nl_inf]
 
 for i in range(1,int(n_p)):
     U_l.append(nl_inf+(i)*int_sz)  
     if len(U_l) == (int(n_p)-1):
         U_l.append(nl_inf+i*int_sz)  
     
-U_l.append(l_sup)
+U_l.append(nl_sup)
 print U_l
 
 # Create a list of lists with the intervals 
@@ -226,5 +223,6 @@ for k in range(n_st,len(Df.iloc[:,1])+1):
     x =  Df.iloc[:k,1].tolist()
     tpl = calc_favg(x)
     dat.append(tpl)
+
 
 # Defuzzification part 
